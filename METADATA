@@ -1,0 +1,39 @@
+{
+  "title": "Friend Smash - Canvas",
+  "platform_features": [
+    {
+      "feature_group": "graph_api"
+    }
+  ],
+  "platforms": [
+    {
+      "name": "html"
+    },
+    {
+      "name": "php"
+    },
+    {
+      "name": "javascript"
+    }
+  ],
+  "sdks": [
+    {
+      "name": "javascript",
+      "version": "671604"
+    },
+    {
+      "name": "php",
+      "version": "3.0"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "screenshots/friendsmash_1.png"
+    }
+  ],
+  "tutorial": {
+    "url": "https://developers.facebook.com/docs/tutorials/canvas-games/"
+  },
+  "featured": 1,
+  "deprecated": 0
+}

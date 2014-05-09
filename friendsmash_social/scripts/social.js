@@ -68,9 +68,9 @@ function getScores(callback) {
 
 function hasPermission(permission) {
   for( var i in friendCache.permissions ) {
-    if( 
-      friendCache.permissions[i].permission == permission 
-      && friendCache.permissions[i].status == 'granted' ) 
+    if(
+      friendCache.permissions[i].permission == permission
+      && friendCache.permissions[i].status == 'granted' )
       return true;
   }
   return false;
@@ -101,7 +101,7 @@ function onStatusChange(response) {
           getFriends(function(){
             renderWelcome();
             onLeaderboard();
-            showHome();    
+            showHome();
           });
         } else {
           renderWelcome();

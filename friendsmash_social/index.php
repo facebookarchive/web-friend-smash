@@ -27,6 +27,7 @@
     <header>
       <div class="container">
         <img class="logo" src="images/logo.png" />
+        <button class="image share"></button>
       </div>
     </header>
 
@@ -126,12 +127,17 @@
       </div>
       <div class="buttons">
         <button class="image challenge"></button>
-        <button class="image brag"></button>
-        <button class="image close"></button>
+      </div>
+      <div class="share_composer">
+        <textarea placeholder="Say something about your game"></textarea>
+        <div class="buttons">
+          <button class="image close"></button>
+          <button class="image share_action"></button>
+        </div>
       </div>
     </section>
 
-    <footer style="display: none;">
+    <footer>
       <div class="container">
         <p><a href="#">View Friend Smash! on App Center</a></p>
       </div>

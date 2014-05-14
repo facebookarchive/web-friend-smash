@@ -50,7 +50,7 @@ var CONFIRM_YES = 1, CONFIRM_NO = 0;
 
 function showConfirmationPopup(message,callback) {
   var c = confirm(message);
-  if(c){ 
+  if(c){
     callback(CONFIRM_YES);
   } else {
     callback(CONFIRM_NO);
@@ -59,7 +59,7 @@ function showConfirmationPopup(message,callback) {
 
 function onPlay() {
   // Player hasn't granted user_friends and hasn't been re-asked this session
-  if( !hasPermission('user_friends') 
+  if( !hasPermission('user_friends')
     && !friendCache.reRequests['user_friends'] ) {
 
     showConfirmationPopup('Wanna play with friends?', function(response){
@@ -68,8 +68,8 @@ function onPlay() {
       friendCache.reRequests['user_friends'] = true;
 
       if( response == CONFIRM_YES ) {
-        // Ask for permisisons again, check if granted, 
-        // refresh permissions, get friends, 
+        // Ask for permisisons again, check if granted,
+        // refresh permissions, get friends,
         // try playing again
         reRequest('user_friends', function(){
           getPermissions(function(){
@@ -119,7 +119,7 @@ function showGameOver() {
 function onGameEnd(gameState) {
   console.log('Game ended', gameState);
   showGameOver();
-  if( !hasPermission('publish_actions') 
+  if( !hasPermission('publish_actions')
     && !friendCache.reRequests['publish_actions']) {
     showConfirmationPopup('Do you want to publish your scores to Facebook?', function(response) {
       friendCache.reRequests['user_friends'] = true;
@@ -130,7 +130,7 @@ function onGameEnd(gameState) {
           });
         });
       }
-    }); 
+    });
   } else {
     sendScore(gameState.score, function(){});
   }
@@ -234,6 +234,7 @@ function updateChallenger(challenger) {
   gameOverScreen.find('.name').html( challenger.name );
   gameOverScreen.find('button.challenge').attr( 'data-id', challenger.id );
   gameOverScreen.find('button.brag').attr( 'data-id', challenger.id );
+  gameOverScreen.find('button.share_action').attr( 'data-id', challenger.id );
 }
 
 function updateGameStats(gameState) {
@@ -249,6 +250,8 @@ function updateGameStats(gameState) {
   gameOverScreen.find('.coins_plurality').html( gameState.coinsCollected == 1 ? 'coin' : 'coins' );
   gameOverScreen.find('button.challenge').attr( 'data-score', gameState.score );
   gameOverScreen.find('button.brag').attr( 'data-score', gameState.score );
+  gameOverScreen.find('button.share_action').attr( 'data-score', gameState.score );
+  gameOverScreen.find('button.share_action').attr( 'data-coins', gameState.coinsCollected );
 }
 
 function onGameOverChallenge() {
@@ -263,6 +266,23 @@ function onGameOverBrag() {
   });
 }
 
+function onGameOverShareAction() {
+  var params = {
+    profile: $(this).attr('data-id'),
+    score: $(this).attr('data-score'),
+    coins: $(this).attr('data-coins'),
+    message: $('.share_composer textarea').val()
+  }
+  publishOGSmashAction(params, function(){
+    $('.share_composer textarea').val('');
+    showHome();
+  });
+}
+
 function onGameOverClose() {
   showHome();
+}
+
+function onShare() {
+  share();
 }

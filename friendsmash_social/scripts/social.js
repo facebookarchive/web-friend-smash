@@ -138,6 +138,49 @@ function sendBrag(caption, callback) {
   }, callback);
 }
 
+function publishOGSmashAction(params, callback) {
+  // Can we publish via the API?
+  if( !hasPermission('publish_actions') ) {
+    // Have we asked the player for publish_actions already this game?
+    if( !friendCache.reRequests['publish_actions'] ) {
+      // Ask for the permission
+      reRequest('publish_actions', function(response) {
+        // Check permission was granted, recurse the method
+        friendCache.reRequests['publish_actions'] = true;
+        getPermissions(function() {
+          publishOGSmashAction(params);
+        });
+      });
+    } else {
+      // They said no to publish_actions, use the dialog
+      FB.ui({
+        method: 'share_open_graph',
+        action_type: 'friendsmashsample:smash',
+        action_properties: {
+          profile: params.profile,
+          score: params.score,
+          coins: params.coins
+        }
+      }, function(response){
+        console.log('share_open_graph', response);
+        if(callback) callback(response);
+      });
+    }
+  } else {
+    // We can publish via the API
+    FB.api('/me/friendsmashsample:smash', 'post', {
+      profile: params.profile,
+      score: params.score,
+      coins: params.coins,
+      message: params.message,
+      'fb:explicitly_shared': true
+    }, function(response) {
+      console.log('Open graph action via API', response);
+      if(callback) callback(response);
+    });
+  }
+}
+
 function sendScore(score, callback) {
   // Check current score, post new one only if it's higher
   FB.api('/me/scores', function(response) {
@@ -151,5 +194,15 @@ function sendScore(score, callback) {
         callback();
       });
     }
+  });
+}
+
+function share(callback) {
+  FB.ui({
+    method: 'share',
+    href: 'http://apps.facebook.com/' + appNamespace + '/share.html'
+  }, function(response){
+    console.log('share', response);
+    if(callback) callback(response);
   });
 }

@@ -52,7 +52,10 @@ $( document ).ready(function() {
 
   $( document ).on( 'click', '#gameover button.challenge', onGameOverChallenge );
   $( document ).on( 'click', '#gameover button.brag', onGameOverBrag );
+  $( document ).on( 'click', '#gameover button.share_action', onGameOverShareAction );
   $( document ).on( 'click', '#gameover button.close', onGameOverClose );
+
+  $( document ).on( 'click', 'header button.share', onShare );
 
   $( document ).on( 'mousedown', '#canvas', onGameCanvasMousedown );
 

@@ -12,6 +12,7 @@
 
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//connect.facebook.net/en_US/sdk.js"></script>
+    <script src="//www.parsecdn.com/js/parse-1.2.18.min.js"></script>
 
     <script src="scripts/social.js"></script>
     <script src="scripts/ui.js"></script>

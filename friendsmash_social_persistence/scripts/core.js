@@ -66,6 +66,8 @@ $( document ).ready(function() {
     version: 'v2.0'
   });
 
+  Parse.initialize(parseAppID, parseJSKey);
+
   FB.Event.subscribe('auth.authResponseChange', onAuthResponseChange);
   FB.Event.subscribe('auth.statusChange', onStatusChange);
 });

@@ -2,8 +2,8 @@ var appId = '844042765624257';//'480369938658210';
 var appNamespace = 'friendsmashsampledev';//'friendsmashsample';
 var appCenterURL = '//www.facebook.com/appcenter/' + appNamespace;
 
-var parseAppID = 'EMsUqEDE5YtM28UI6KQ9YmOwzNSMNLbUyLldUNLq';
-var parseJSKey = 'MzURm4uhhSjRoQxNE6nD4HEEgNIqYGGqT8gnGhAO';
+var parseAppID = 'N1lOGVWXpikgvPFJxkfkd4kRTvaPNuOWe83zRoRx';
+var parseJSKey = 'nwIChKspaBSV0dFwQlKinrVD3XFXIRScCZiE1lIi';
 
 var friendCache = {
   me: {},
@@ -95,22 +95,32 @@ function reRequest(scope, callback) {
 }
 
 function onStatusChange(response) {
+  console.log('onStatusChange', response);
   if( response.status != 'connected' ) {
     login(loginCallback);
   } else {
-    getMe(function(){
-      getPermissions(function(){
-        if(hasPermission('user_friends')) {
-          getFriends(function(){
+    Parse.FacebookUtils.logIn({
+      id: response.authResponse.userID,
+      access_token: response.authResponse.accessToken,
+      expiration_date: moment().add('s',response.authResponse.expiresIn).format()
+    }).then(function(user){
+      console.log('Parse.FacebookUtils.logIn', user);
+      getMe(function(){
+        getPermissions(function(){
+          if(hasPermission('user_friends')) {
+            getFriends(function(){
+              renderWelcome();
+              onLeaderboard();
+              showHome();
+            });
+          } else {
             renderWelcome();
-            onLeaderboard();
             showHome();
-          });
-        } else {
-          renderWelcome();
-          showHome();
-        }
+          }
+        });
       });
+    },function(error){
+      console.log('Parse login failed', error);
     });
   }
 }

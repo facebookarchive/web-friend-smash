@@ -14,6 +14,8 @@
     <script src="//connect.facebook.net/en_US/sdk.js"></script>
     <script src="//www.parsecdn.com/js/parse-1.2.18.min.js"></script>
 
+    <script src="scripts/moment.js"></script>
+
     <script src="scripts/social.js"></script>
     <script src="scripts/ui.js"></script>
     <script src="scripts/game.js"></script>

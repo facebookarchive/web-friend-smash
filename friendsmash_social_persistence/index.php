@@ -40,7 +40,6 @@
           <h1>Welcome <span class="first_name">...</span></h1>
           <img class="profile" src="images/profile.png" />
           <ul class="stats">
-            <li>High Score <span class="me score">...</span></li>
             <li>Coins <span class="me coins">...</span></li>
             <li>Bombs <span class="me bombs">...</span></li>
           </ul>

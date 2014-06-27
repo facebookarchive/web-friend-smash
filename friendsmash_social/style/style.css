@@ -8,9 +8,9 @@ section { width: 960px; height: 580px; margin: 0 auto; }
 
 header .container,
 section .container,
-footer .container { width: 960px; margin: 0 auto; }
+footer .container { width: 960px; margin: 0 auto; position: relative; }
 
-header .logo { position: relative; left: -65px; } 
+header .logo { position: relative; left: -65px; }
 
 section { position: relative; }
 section.hidden { display: none; }
@@ -26,16 +26,23 @@ button:disabled { opacity: 0.8; cursor: not-allowed; }
 button.image { display: block; background: none; border: 0; outline: none; -webkit-transform-origin: 25% 50%; -webkit-transform: rotate(-3deg) scale(0.9); -webkit-transition: -webkit-transform 0.2s; }
 button.image:hover { -webkit-transform: rotate(3deg) scale(1.1); }
 
+button.image.share { background: url('../images/share_icon.png') center left no-repeat; background-size: contain; }
+
 button.image.play { background: url('../images/button_play.png') center left no-repeat; background-size: contain; }
 button.image.challenge { background: url('../images/button_challenge.png') center left no-repeat; background-size: contain; }
 button.image.leaderboard { background: url('../images/button_leaderboard.png') center left no-repeat; background-size: contain; }
 button.image.close { background: url('../images/button_close.png') center left no-repeat; background-size: contain; }
 button.image.brag { background: url('../images/button_brag.png') center left no-repeat; background-size: contain; }
+button.image.share_action { background: url('../images/button_share_action.png') center left no-repeat; background-size: contain; }
 
 #gameover { text-align: center; }
 #gameover .profile { display: block; width: 118px; height: 118px; border: 1px solid #f1dfcc; margin: 20px auto; }
-#gameover h1 { font-size: 40px; font-weight: bold; margin: 10px; }
-#gameover p { font-size: 20px; font-weight: bold; margin: 10px; }
+#gameover h1 { font-size: 40px; font-weight: normal; margin: 10px; text-transform: uppercase; }
+#gameover p { font-size: 20px; margin: 10px; }
+
+#gameover .share_composer textarea { font: 20px "Arial Narrow", arial, sans-serif; width: 480px; height: 80px; }
+#gameover .share_composer .buttons { width: 480px; height: 60px; margin: 0 auto; }
+#gameover .share_composer .buttons button { float: left; }
 
 #gameover button { display: block; width: 240px; height: 60px; margin: 10px auto; }
 
@@ -81,6 +88,8 @@ section canvas { width: 960px; height: 580px; }
 
 #menu { width: 450px; height: 400px; }
 #menu button.image { width: 400px; height: 100px; display: block; }
+
+header button.image { position: absolute; top: 5px; right: 0; display: block; width: 200px; height: 100px; -webkit-transform-origin: 50% 50% }
 
 .nofriends { display: none; }
 

@@ -121,6 +121,16 @@ function showGameOver() {
 function onGameEnd(gameState) {
   console.log('Game ended', gameState);
   showGameOver();
+  if( gameState.bombsUsed || gameState.coinsCollected ) {
+    Parse.User.current().increment('coins', gameState.coinsCollected);
+    Parse.User.current().increment('bombs', -1 * gameState.bombsUsed);
+    Parse.User.current().save().then( function(user) {
+      console.log('Parse User saved after game end');
+      renderWelcome();
+    }, function(error) {
+      console.log('Error saving Parse User after game end', error);
+    });
+  }
   if( !hasPermission('publish_actions')
     && !friendCache.reRequests['publish_actions']) {
     showConfirmationPopup('Do you want to publish your scores to Facebook?', function(response) {

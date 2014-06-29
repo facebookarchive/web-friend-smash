@@ -122,9 +122,7 @@ function onGameEnd(gameState) {
   console.log('Game ended', gameState);
   showGameOver();
   if( gameState.bombsUsed || gameState.coinsCollected ) {
-    Parse.User.current().increment('coins', gameState.coinsCollected);
-    Parse.User.current().increment('bombs', -1 * gameState.bombsUsed);
-    Parse.User.current().save().then( function(user) {
+    saveParseUser(gameState.coinsCollected, gameState.bombsUsed).then( function(user) {
       console.log('Parse User saved after game end');
       renderWelcome();
     }, function(error) {

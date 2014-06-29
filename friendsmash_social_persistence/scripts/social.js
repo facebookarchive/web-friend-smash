@@ -2,9 +2,6 @@ var appId = '844042765624257';//'480369938658210';
 var appNamespace = 'friendsmashsampledev';//'friendsmashsample';
 var appCenterURL = '//www.facebook.com/appcenter/' + appNamespace;
 
-var parseAppID = 'N1lOGVWXpikgvPFJxkfkd4kRTvaPNuOWe83zRoRx';
-var parseJSKey = 'nwIChKspaBSV0dFwQlKinrVD3XFXIRScCZiE1lIi';
-
 var friendCache = {
   me: {},
   user: {},
@@ -99,12 +96,8 @@ function onStatusChange(response) {
   if( response.status != 'connected' ) {
     login(loginCallback);
   } else {
-    Parse.FacebookUtils.logIn({
-      id: response.authResponse.userID,
-      access_token: response.authResponse.accessToken,
-      expiration_date: moment().add('s',response.authResponse.expiresIn).format()
-    }).then(function(user){
-      console.log('Parse.FacebookUtils.logIn', user);
+    parseLogin(response.authResponse).then(function(user){
+      console.log('Parse login success', user);
       getMe(function(){
         getPermissions(function(){
           if(hasPermission('user_friends')) {

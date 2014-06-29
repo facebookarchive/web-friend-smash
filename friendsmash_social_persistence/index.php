@@ -16,6 +16,7 @@
 
     <script src="scripts/moment.js"></script>
 
+    <script src="scripts/persistence.js"></script>
     <script src="scripts/social.js"></script>
     <script src="scripts/ui.js"></script>
     <script src="scripts/game.js"></script>

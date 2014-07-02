@@ -139,7 +139,7 @@
 
     <footer>
       <div class="container">
-        <p><a href="#">View Friend Smash! on App Center</a></p>
+        <p><a href="https://www.facebook.com/appcenter/friendsmashsample">View Friend Smash! on App Center</a></p>
       </div>
     </footer>
 

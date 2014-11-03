@@ -237,6 +237,7 @@ function displayGiftDialog() {
     function (response) {
 	  console.log('gift', response);
       if (response && !response.error) {
+	    console.log('gift name', response.Object.title);
         /* handle the result */
       }
     });

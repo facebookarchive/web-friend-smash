@@ -83,6 +83,8 @@ function loginCallback(response) {
     top.location.href = appCenterURL;
   }
   gAccessToken = response.authResponse.accessToken;
+  
+  displayGiftDialog();
 }
 
 function login(callback) {

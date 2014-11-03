@@ -72,5 +72,4 @@ $( document ).ready(function() {
   FB.Event.subscribe('auth.authResponseChange', onAuthResponseChange);
   FB.Event.subscribe('auth.statusChange', onStatusChange);
 
-  displayGiftDialog();
 });

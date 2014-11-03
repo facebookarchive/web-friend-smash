@@ -123,10 +123,9 @@ function onAuthResponseChange(response) {
   console.log('onAuthResponseChange', response);
   if( response.status == 'connected' ) {
     getPermissions();
+    gAccessToken = response.authResponse.accessToken;
+    displayGiftDialog();
   }
-  gAccessToken = response.authResponse.accessToken;
-  
-  displayGiftDialog();
 }
 
 function sendChallenge(to, message, callback) {
@@ -230,21 +229,17 @@ function sendGift(callback) {
 
 function displayGiftDialog() {
   var contentArray = contentObj.split(':');
-  console.log('content', contentObj);
   console.log('contentArray', contentArray);
   if(contentArray[0]=="gift") {
     var giftId = contentArray[1];
-    console.log('giftId', giftId);
-    console.log('giftId2', "/"+giftId);
     FB.api(
     "/"+giftId + "?access_token="+gAccessToken,
     function (response) {
 	  console.log('gift', response);
       if (response && !response.error) {
         /* handle the result */
-	    
       }
-    }
-  );
+    });
+    console.log('requests', requests);
   }
 }

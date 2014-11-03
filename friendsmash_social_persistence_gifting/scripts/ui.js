@@ -296,3 +296,7 @@ function onGameOverClose() {
 function onShare() {
   share();
 }
+
+function onGifting() {
+  gift();
+}

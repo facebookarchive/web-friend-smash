@@ -1,6 +1,7 @@
 var appId = '844042765624257';
 var appNamespace = 'friendsmashsample';
 var appCenterURL = '//www.facebook.com/appcenter/' + appNamespace;
+var gAccessToken;
 
 var friendCache = {
   me: {},
@@ -81,6 +82,7 @@ function loginCallback(response) {
   if(response.status != 'connected') {
     top.location.href = appCenterURL;
   }
+  gAccessToken = response.authResponse.accessToken;
 }
 
 function login(callback) {
@@ -233,7 +235,7 @@ function displayGiftDialog() {
     console.log('giftId', giftId);
     console.log('giftId2', "/"+giftId);
     FB.api(
-    "/"+giftId,
+    "/"+giftId + "?access_token="+gAccessToken,
     function (response) {
 	  console.log('gift', response);
       if (response && !response.error) {

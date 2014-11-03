@@ -34,6 +34,7 @@ button.image.share { background: url('../images/share_icon.png') center left no-
 button.image.play { background: url('../images/button_play.png') center left no-repeat; background-size: contain; }
 button.image.challenge { background: url('../images/button_challenge.png') center left no-repeat; background-size: contain; }
 button.image.leaderboard { background: url('../images/button_leaderboard.png') center left no-repeat; background-size: contain; }
+button.image.sendgift { background: url('../images/button_sendgift.png') center left no-repeat; background-size: contain; }
 button.image.close { background: url('../images/button_close.png') center left no-repeat; background-size: contain; }
 button.image.brag { background: url('../images/button_brag.png') center left no-repeat; background-size: contain; }
 button.image.share_action { background: url('../images/button_share_action.png') center left no-repeat; background-size: contain; }

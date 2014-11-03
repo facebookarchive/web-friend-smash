@@ -49,7 +49,7 @@
           <button class="image play"></button>
           <button class="image challenge"></button>
           <button class="image leaderboard"></button>
-          <button class="image gifting"></button>
+          <button class="image sendgift"></button>
         </div>
       </div>
       <div class="panel right hidden" id="leaderboard">

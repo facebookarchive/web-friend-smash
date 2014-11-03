@@ -297,6 +297,6 @@ function onShare() {
   share();
 }
 
-function onGifting() {
-  gift();
+function onSendGift() {
+  sendGift();
 }

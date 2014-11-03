@@ -213,7 +213,7 @@ function share(callback) {
   });
 }
 
-function gift(callback) {
+function sendGift(callback) {
   FB.ui({
 	method: 'gift',
 	product: 'http://platformtest2.herokuapp.com/coin.html',

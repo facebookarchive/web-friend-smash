@@ -233,13 +233,19 @@ function displayGiftDialog() {
   if(contentArray[0]=="gift") {
     var giftId = contentArray[1];
     FB.api(
-    "/"+giftId + "?access_token="+gAccessToken,
-    function (response) {
-	  console.log('gift', response);
-      if (response && !response.error) {
-	    console.log('gift name', response.title);
-        /* handle the result */
-      }
+      "/"+giftId + "?access_token="+gAccessToken,
+      function (response) {
+	    console.log('gift', response);
+        if (response && !response.error) {
+	      console.log('gift name', response.title);
+          /* handle the result */
+          FB.api(
+	        "/"+requests[0]+"?access_token="+gAccessToken,
+	        function (response) {
+			  console.log('request', response);
+			}
+	      );
+        }
     });
     console.log('requests', requests);
   }

@@ -1,8 +1,3 @@
-<?php
-  echo $_GET['request_ids'];
-  echo $_GET['content'];
-?>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -26,6 +21,12 @@
     <script src="scripts/ui.js"></script>
     <script src="scripts/game.js"></script>
     <script src="scripts/core.js"></script>
+    <script>
+      var requests = '<?php echo $_GET['request_ids'] ?>';
+      console.log(requests);
+      var giftObj = '<?php echo $_GET['content'] ?>';
+	  console.log(giftObj);
+    </script>
 
     <!--[if IE]><script src="scripts/excanvas.js"></script><![endif]-->
   </head>

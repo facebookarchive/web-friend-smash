@@ -232,7 +232,7 @@ function displayGiftDialog() {
     var giftId = contentArray[1];
     console.log('giftId', giftId);
     FB.api(
-    "/"+giftId,
+    "/".giftId,
     function (response) {
       if (response && !response.error) {
         /* handle the result */

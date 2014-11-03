@@ -216,7 +216,7 @@ function share(callback) {
 function sendGift(callback) {
   FB.ui({
 	method: 'gift',
-	product: 'http://platformtest2.herokuapp.com/coin.html',
+	product: 'http://friendsmashdev.herokuapp.com/coin.html',
 	message: 'I hope you like my gift!',
   }, function(response){
     console.log('share', response);

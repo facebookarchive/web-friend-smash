@@ -82,9 +82,6 @@ function loginCallback(response) {
   if(response.status != 'connected') {
     top.location.href = appCenterURL;
   }
-  gAccessToken = response.authResponse.accessToken;
-  
-  displayGiftDialog();
 }
 
 function login(callback) {
@@ -127,6 +124,9 @@ function onAuthResponseChange(response) {
   if( response.status == 'connected' ) {
     getPermissions();
   }
+  gAccessToken = response.authResponse.accessToken;
+  
+  displayGiftDialog();
 }
 
 function sendChallenge(to, message, callback) {

@@ -223,3 +223,19 @@ function sendGift(callback) {
     //if(callback) callback(response);
   });
 }
+
+function displayGiftDialog() {
+  var contentArray = contentObj.split(':');
+  if(contentArray[0]=="gift") {
+    var giftId = contentArray[1];
+    FB.api(
+    "/"+giftId,
+    function (response) {
+      if (response && !response.error) {
+        /* handle the result */
+	    console.log('giftId', response);
+      }
+    }
+  );
+  }
+}

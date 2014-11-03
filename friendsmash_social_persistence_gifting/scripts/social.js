@@ -230,6 +230,7 @@ function displayGiftDialog() {
   console.log('contentArray', contentArray);
   if(contentArray[0]=="gift") {
     var giftId = contentArray[1];
+    console.log('giftId', giftId);
     FB.api(
     "/"+giftId,
     function (response) {

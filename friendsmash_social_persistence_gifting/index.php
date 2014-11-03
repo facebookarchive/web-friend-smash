@@ -1,3 +1,8 @@
+<?php
+  echo $_GET['request_ids'];
+  echo $_GET['content'];
+?>
+
 <!DOCTYPE html>
 <html>
   <head>

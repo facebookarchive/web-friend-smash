@@ -1,4 +1,4 @@
-var appId = '480369938658210';
+var appId = '844042765624257';
 var appNamespace = 'friendsmashsample';
 var appCenterURL = '//www.facebook.com/appcenter/' + appNamespace;
 

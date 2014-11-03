@@ -42,6 +42,7 @@ $( document ).ready(function() {
   $( document ).on( 'click', '#menu button.play', onPlay );
   $( document ).on( 'click', '#menu button.challenge', onChallenge );
   $( document ).on( 'click', '#menu button.leaderboard', onLeaderboard );
+  $( document ).on( 'click', '#menu button.gifting', onGifting );
 
   $( document ).on( 'click', '.friendselector .item', onChallengeItemClick );
   $( document ).on( 'click', '.leaderboard .item', onLeaderboardItemClick );

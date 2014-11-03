@@ -235,9 +235,10 @@ function displayGiftDialog() {
     FB.api(
     "/"+giftId,
     function (response) {
+	  console.log('gift', response);
       if (response && !response.error) {
         /* handle the result */
-	    console.log('giftId', response);
+	    
       }
     }
   );

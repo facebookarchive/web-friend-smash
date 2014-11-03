@@ -227,6 +227,7 @@ function sendGift(callback) {
 function displayGiftDialog() {
   var contentArray = contentObj.split(':');
   console.log('content', contentObj);
+  console.log('contentArray', contentArray);
   if(contentArray[0]=="gift") {
     var giftId = contentArray[1];
     FB.api(

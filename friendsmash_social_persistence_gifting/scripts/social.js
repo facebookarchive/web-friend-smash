@@ -240,6 +240,7 @@ function displayGiftDialog() {
 	      console.log('gift name', response.title);
           /* handle the result */
           FB.api(
+	        console.log('requests[0]', requests[0]);
 	        "/"+requests[0]+"?access_token="+gAccessToken,
 	        function (response) {
 			  console.log('request', response);

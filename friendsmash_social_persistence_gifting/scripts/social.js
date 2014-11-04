@@ -245,6 +245,8 @@ function displayGiftDialog() {
 	        "/"+requestArray[0]+"?access_token="+gAccessToken,
 	        function (response) {
 			  console.log('request', response);
+			  console.log('fromName', response.from.name);
+    		  console.log('message', response.message);
 			}
 	      );
         }

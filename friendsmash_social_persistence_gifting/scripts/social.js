@@ -123,8 +123,6 @@ function onAuthResponseChange(response) {
   console.log('onAuthResponseChange', response);
   if( response.status == 'connected' ) {
     getPermissions();
-    gAccessToken = response.authResponse.accessToken;
-    displayGiftDialog();
   }
 }
 
@@ -225,35 +223,4 @@ function sendGift(callback) {
     console.log('share', response);
     //if(callback) callback(response);
   });
-}
-
-function displayGiftDialog() {
-  var contentArray = contentObj.split(':');
-  console.log('contentArray', contentArray);
-  if(contentArray[0]=="gift") {
-    var giftId = contentArray[1];
-    FB.api(
-      "/"+giftId + "?access_token="+gAccessToken,
-      function (response) {
-	    console.log('gift', response);
-        if (response && !response.error) {
-	      var giftName = response.title;;
-          /* handle the result */
-          var requestArray = requests.split(',');
-          console.log('requestArray[0]', requestArray[0]);
-          FB.api(
-	        "/"+requestArray[0]+"?access_token="+gAccessToken,
-	        function (response) {
-			  console.log('request', response);
-			  console.log('fromName', response.from.name);
-    		  console.log('message', response.message);
-
-			  window.prompt(response.message, "You received a "+giftName+" from "+response.from.name);
-
-			}
-	      );
-        }
-    });
-    console.log('requests', requests);
-  }
 }

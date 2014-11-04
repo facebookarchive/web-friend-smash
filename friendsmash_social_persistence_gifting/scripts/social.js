@@ -237,7 +237,7 @@ function displayGiftDialog() {
       function (response) {
 	    console.log('gift', response);
         if (response && !response.error) {
-	      console.log('gift name', response.title);
+	      var giftName = response.title;;
           /* handle the result */
           var requestArray = requests.split(',');
           console.log('requestArray[0]', requestArray[0]);
@@ -247,6 +247,9 @@ function displayGiftDialog() {
 			  console.log('request', response);
 			  console.log('fromName', response.from.name);
     		  console.log('message', response.message);
+
+			  window.prompt(response.message, "You received a "+giftName+" from "+response.from.name);
+
 			}
 	      );
         }

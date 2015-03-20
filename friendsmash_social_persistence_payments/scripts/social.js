@@ -1,5 +1,5 @@
-var appId = '480369938658210';
-var appNamespace = 'friendsmashsample';
+var appId = '844042765624257';
+var appNamespace = 'friendsmashsampledev';
 var appCenterURL = '//www.facebook.com/appcenter/' + appNamespace;
 
 var friendCache = {
@@ -64,6 +64,16 @@ function getInvitableFriends(callback) {
 
 function getScores(callback) {
   getFriendCacheData('scores', callback, {fields: 'score,user.fields(first_name,name,picture.width(120).height(120))'});
+}
+
+function getOpponentInfo(id, callback) {
+  FB.api(String(id), {fields: 'id,first_name,name,picture.width(120).height(120)' }, function(response){
+    if( response.error ) {
+      console.error('getOpponentInfo', response.error);
+      return;
+    }
+    if(callback) callback(response);
+  });
 }
 
 function hasPermission(permission) {
@@ -212,4 +222,11 @@ function share(callback) {
     console.log('share', response);
     if(callback) callback(response);
   });
+}
+
+function logGamePlayedEvent(score) {
+  var params = {
+    'score': score
+  };
+  FB.AppEvents.logEvent('game_played', null, params);
 }

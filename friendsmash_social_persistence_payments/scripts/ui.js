@@ -91,7 +91,7 @@ function onPlay() {
     // Either way, play against a friend if there are friends, otherwise play against a celebrity
     var challenger = {};
     var player = {
-      bombs: 5
+      bombs: 3
     };
     if( friendCache.friends.length > 0 ) {
       var randomFriend = Math.floor(getRandom(0, friendCache.friends.length));
@@ -120,6 +120,7 @@ function showGameOver() {
 
 function onGameEnd(gameState) {
   console.log('Game ended', gameState);
+  logGamePlayedEvent(gameState.score);
   showGameOver();
   if( gameState.bombsUsed || gameState.coinsCollected ) {
     saveParseUser(gameState.coinsCollected, gameState.bombsUsed).then( function(user) {
@@ -209,17 +210,52 @@ function onLeaderboard() {
 }
 
 function onLeaderboardItemClick() {
-  var player = {
-    bombs: 5
-  };
-  var challenger = {
-    id: $(this).attr('data-id'),
-    picture: $(this).find('img').attr('src'),
-    name: $(this).find('.name').html()
-  };
-  showStage();
-  updateChallenger(challenger);
-  initGame(player, challenger, $('#canvas'), updateGameStats, onGameEnd);
+  playAgainstSomeone($(this).attr('data-id'));
+}
+
+function playAgainstSomeone(id) {
+  getOpponentInfo(id,function(response) {
+    var challenger = {
+      id: response.id,
+      picture: response.picture.data.url,
+      name: response.first_name
+    }, player = {
+      bombs: Parse.User.current().get('bombs')
+    };
+    showStage();
+    updateChallenger(challenger);
+    initGame(player, challenger, $('#canvas'), updateGameStats, onGameEnd);
+  });
+}
+
+function onBuyBomb() {
+  console.log('buy bomb');
+  var bombCost = 500;
+  if( Parse.User.current().get('coins') < bombCost ) {
+    alert("You can't afford a bomb!");
+    return;
+  }
+  saveParseUser(-1*bombCost, -1).then( function(user) {
+    console.log('Bought bomb');
+    renderWelcome();
+  }, function(error) {
+    console.log('Error buying bomb');
+  });
+}
+
+function onStore() {
+  $('#home').find('.panel.right').addClass('hidden');
+  $('#store').removeClass('hidden');
+}
+
+function onStoreItemBuyClick() {
+  var product= $(this).parent().attr('data-product');
+  purchaseProduct(product, renderWelcome);
+}
+
+function onStoreItemGiftClick() {
+  var product= $(this).parent().attr('data-product');
+  giftProduct(product, renderWelcome);
 }
 
 function updatePlayerUI() {
@@ -295,4 +331,34 @@ function onGameOverClose() {
 
 function onShare() {
   share();
+}
+
+function getParameterByName(url, name) {
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec(url);
+  return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function urlHandler(data) {
+  console.log('urlHandler', data);
+
+  var request_ids = getParameterByName(data.path, 'request_ids');
+  var content = getParameterByName(data.path, 'content');
+
+  if (content && content.startsWith('gift')) {
+    // User was just gifted an object; refresh Parse user then update UI
+    refreshParseUser().then(function(user){
+      console.log('Refreshed current user from Parse', user);
+      renderWelcome();
+    }, function(error){
+      console.error('Error refreshing user', error);
+    });
+  } else if (request_ids) {
+    // Not a gift, but probably a request. Play against sender
+    playAgainstSomeone( request_ids.split(',')[0] );
+  } else {
+    // Default behaviour
+    window.location = data.path;
+  }
 }

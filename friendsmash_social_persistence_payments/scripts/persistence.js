@@ -29,3 +29,7 @@ function saveParseUser(coins, bombs) {
   Parse.User.current().increment('bombs', -1 * bombs);
   return Parse.User.current().save();
 }
+
+function refreshParseUser() {
+  return Parse.User.current().fetch();
+}

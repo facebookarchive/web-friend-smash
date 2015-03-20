@@ -21,6 +21,7 @@
     <script src="scripts/ui.js"></script>
     <script src="scripts/game.js"></script>
     <script src="scripts/core.js"></script>
+    <script src="scripts/payments.js"></script>
 
     <!--[if IE]><script src="scripts/excanvas.js"></script><![endif]-->
   </head>
@@ -41,14 +42,15 @@
           <h1>Welcome <span class="first_name">...</span></h1>
           <img class="profile" src="images/profile.png" />
           <ul class="stats">
-            <li>Coins <span class="me coins">...</span></li>
-            <li>Bombs <span class="me bombs">...</span></li>
+            <li><img src="images/coin40.png" alt="Coins" /> <span class="me coins">...</span></li>
+            <li><img class="buybomb" src="images/buybomb40.png" alt="Bombs" /> <span class="me bombs">...</span></li>
           </ul>
         </div>
         <div id="menu">
           <button class="image play"></button>
           <button class="image challenge"></button>
           <button class="image leaderboard"></button>
+          <button class="image store"></button>
         </div>
       </div>
       <div class="panel right hidden" id="leaderboard">
@@ -72,7 +74,6 @@
           </ul>
         </div>
       </div>
-
       <div class="panel right hidden friends" id="friendselector">
         <div class="nofriends">
           <p>Friend Smash! is better with friends! Click here to see a list of friends to challenge.</p>
@@ -101,6 +102,40 @@
           <div class="buttons">
             <button class="image challenge send" disabled="disabled"></button>
           </div>
+        </div>
+      </div>
+      <div class="panel right hidden" id="store">
+        <h1>Store</h1>
+        <div class="normal_store">
+          <ul class="scrollable_list store invitable_friends">
+            <li class="item" data-product="https://friendsmashsampledev.herokuapp.com/payments/100coins.html">
+              <img src="images/bundle.png" class="icon small" />
+              <span class="name">100 coins</span>
+              <img src="images/buy64.png" class="button buy small" alt="Buy" />
+              <img src="images/gift64.png" class="button gift small" alt="Gift" />
+            </li>
+            <li class="item" data-product="https://friendsmashsampledev.herokuapp.com/payments/500coins.html">
+              <img src="images/bundle.png" class="icon small" />
+              <span class="name">500 coins</span>
+              <img src="images/buy64.png" class="button buy small" alt="Buy" />
+              <img src="images/gift64.png" class="button gift small" alt="Gift" />
+            </li>
+            <li class="item" data-product="https://friendsmashsampledev.herokuapp.com/payments/1000coins.html">
+              <img src="images/bundle.png" class="icon small" />
+              <span class="name">1000 coins</span>
+              <img src="images/buy64.png" class="button buy small" alt="Buy" />
+              <img src="images/gift64.png" class="button gift small" alt="Gift" />
+            </li>
+          </ul>
+        </div>
+        <div class="mobile_store">
+          <ul class="scrollable_list friendselector invitable_friends">
+            <li class="loading">Loading...</li>
+            <li class="template">
+              <img src="images/profile.png" class="profile small" />
+              <span class="name">...</span>
+            </li>
+          </ul>
         </div>
       </div>
     </section>

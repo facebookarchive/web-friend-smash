@@ -39,12 +39,17 @@ var celebs = [{
 
 $( document ).ready(function() {
 
+  $( document ).on( 'click', '#welcome .buybomb', onBuyBomb );
+
   $( document ).on( 'click', '#menu button.play', onPlay );
   $( document ).on( 'click', '#menu button.challenge', onChallenge );
   $( document ).on( 'click', '#menu button.leaderboard', onLeaderboard );
+  $( document ).on( 'click', '#menu button.store', onStore );
 
   $( document ).on( 'click', '.friendselector .item', onChallengeItemClick );
   $( document ).on( 'click', '.leaderboard .item', onLeaderboardItemClick );
+  $( document ).on( 'click', '.store .item .buy', onStoreItemBuyClick );
+  $( document ).on( 'click', '.store .item .gift', onStoreItemGiftClick );
 
   $( document ).on( 'click', '#friendselector button.challenge.send', onChallengeSend );
   $( document ).on( 'click', '#friendselector button.invitable_friends', onChallengeShowInvitableFriends );
@@ -63,8 +68,13 @@ $( document ).ready(function() {
     appId: appId,
     frictionlessRequests: true,
     status: true,
-    version: 'v2.3'
+    version: 'v2.2'
   });
+
+  FB.AppEvents.activateApp();
+
+  FB.Canvas.setDoneLoading();
+  FB.Canvas.setUrlHandler( urlHandler );
 
   Parse.initialize(parseAppID, parseJSKey);
 

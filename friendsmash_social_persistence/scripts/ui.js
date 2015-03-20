@@ -265,7 +265,7 @@ function updateGameStats(gameState) {
 }
 
 function onGameOverChallenge() {
-  sendChallenge($(this).attr('data-id'), 'I just smashed you ' + $(this).attr('data-score') + 'times. Think you can beat me?', function(){
+  sendChallenge($(this).attr('data-id'), 'I just smashed you ' + $(this).attr('data-score') + ' times. Think you can beat me?', function(){
     onGameOverClose();
   }, true);
 }

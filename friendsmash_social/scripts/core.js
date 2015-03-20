@@ -63,7 +63,7 @@ $( document ).ready(function() {
     appId: appId,
     frictionlessRequests: true,
     status: true,
-    version: 'v2.1'
+    version: 'v2.3'
   });
 
   FB.Event.subscribe('auth.authResponseChange', onAuthResponseChange);

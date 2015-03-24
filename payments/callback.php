@@ -3,13 +3,23 @@
 // Skip these two lines if you're using Composer
 define('FACEBOOK_SDK_V4_SRC_DIR', 'facebook-php-sdk/src/Facebook/');
 require __DIR__ . '/facebook-php-sdk/autoload.php';
+require __DIR__ . '/parse-php-sdk-master/autoload.php';
 
 use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
 use Facebook\GraphObject;
 use Facebook\FacebookRequestException;
 
+use Parse\ParseClient;
+use Parse\ParseUser;
+use Parse\ParseQuery;
+
 FacebookSession::setDefaultApplication('844042765624257','qqJJ0AfOPpXQtUymZpkj4HPgon8');
+
+ParseClient::initialize( 
+    'N1lOGVWXpikgvPFJxkfkd4kRTvaPNuOWe83zRoRx', 
+    'OMoIKyKtmqMyLsaM4wYqStNzGOjFlujBbkMYswW8', 
+    '0zaDlFNK1GpHq5s3KqZ51hG9UhFVAXmxb7nZm34q' );
 
 $verify_token = "friendsmash";
 $app_token = "844042765624257|qqJJ0AfOPpXQtUymZpkj4HPgon8";
@@ -20,6 +30,12 @@ $app_token = "844042765624257|qqJJ0AfOPpXQtUymZpkj4HPgon8";
 //   FacebookJavaScriptLoginHelper
 // or create a FacebookSession with a valid access token:
 $session = new FacebookSession($app_token);
+
+$coins_for_product = [
+    'https://friendsmashsampledev.herokuapp.com/payments/100coins.html' => 100,
+    'https://friendsmashsampledev.herokuapp.com/payments/500coins.html' => 500,
+    'https://friendsmashsampledev.herokuapp.com/payments/1000coins.html' => 1000,
+];
 
 // Get the GraphUser object for the current user:
 
@@ -43,6 +59,11 @@ if ($method == 'GET' && $_GET['hub_verify_token'] === $verify_token) {
 
                 $gift_requests = $result->getProperty('gift_requests');
                 $user = $result->getProperty('user');
+                $items = $result->getPropertyAsArray('items');
+                $product = $items[0]->getProperty('product');
+
+                error_log('product '.$product);
+
                 $recipient = '';
                 
                 if( $gift_requests ) {
@@ -52,6 +73,22 @@ if ($method == 'GET' && $_GET['hub_verify_token'] === $verify_token) {
                 } else {
                     $recipient = $user->getProperty('id');
                     error_log('purchase for '.$recipient);
+                }
+
+                $query = new ParseQuery("_User");
+
+                $query = ParseUser::query();
+                $query->equalTo("fbid", $recipient);
+
+                try {
+                    $parse_user = $query->find()[0];
+                    if( !$parse_user ) return;
+                    error_log($parse_user->getObjectId());
+                    $parse_user->increment('coins', $coins);
+                    $parse_user->save(true);
+                    error_log($recipient . ' coins: ' . $coins );
+                } catch (ParseException $ex) {
+                    error_log($ex);
                 }
             }
         } catch (FacebookRequestException $e) {

@@ -341,10 +341,13 @@ function getParameterByName(url, name) {
 }
 
 function urlHandler(data) {
-  console.log('urlHandler', data);
+  // Called from either setUrlHandler or using window.location on load, so normalise the path
+  var path = data.path || data;
+  console.log('urlHandler', path);
 
-  var request_ids = getParameterByName(data.path, 'request_ids');
-  var content = getParameterByName(data.path, 'content');
+  var request_ids = getParameterByName(path, 'request_ids');
+  var latest_request_id = request_ids.split(',')[0];
+  var content = getParameterByName(path, 'content');
 
   if (content && content.startsWith('gift')) {
     // User was just gifted an object; refresh Parse user then update UI
@@ -354,11 +357,11 @@ function urlHandler(data) {
     }, function(error){
       console.error('Error refreshing user', error);
     });
-  } else if (request_ids) {
-    // Not a gift, but probably a request. Play against sender
-    playAgainstSomeone( request_ids.split(',')[0] );
-  } else {
-    // Default behaviour
-    window.location = data.path;
+  } else if (latest_request_id) {
+    // Not a gift, but probably a challenge request. Play against sender
+    getRequestInfo(latest_request_id, function(request) {
+      playAgainstSomeone(request.from.id);
+      deleteRequest(latest_request_id);
+    });
   }
 }

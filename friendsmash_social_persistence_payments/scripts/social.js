@@ -76,6 +76,26 @@ function getOpponentInfo(id, callback) {
   });
 }
 
+function getRequestInfo(id, callback) {
+  FB.api(String(id), {fields: 'from{id,name,picture}' }, function(response){
+    if( response.error ) {
+      console.error('getRequestSenderInfo', response.error);
+      return;
+    }
+    if(callback) callback(response);
+  });
+}
+
+function deleteRequest(id, callback) {
+  FB.api(String(id), 'delete', function(response){
+    if( response.error ) {
+      console.error('deleteRequest', response.error);
+      return;
+    }
+    if(callback) callback(response);
+  });
+}
+
 function hasPermission(permission) {
   for( var i in friendCache.permissions ) {
     if(
@@ -115,10 +135,12 @@ function onStatusChange(response) {
               renderWelcome();
               onLeaderboard();
               showHome();
+              urlHandler(window.location.search);
             });
           } else {
             renderWelcome();
             showHome();
+            urlHandler(window.location.search);
           }
         });
       });

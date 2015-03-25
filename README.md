@@ -3,6 +3,7 @@
 ## Authors
 
 * Connor Treacy (connortreacy)
+* Jakub Pudełek (skoggkatt)
 * Ali Parr (aliparr)
 * Marco Alvarez
 

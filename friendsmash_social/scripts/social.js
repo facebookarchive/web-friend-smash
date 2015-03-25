@@ -122,30 +122,24 @@ function reRequest(scope, callback) {
 }
 
 function onStatusChange(response) {
-  console.log('onStatusChange', response);
   if( response.status != 'connected' ) {
     login(loginCallback);
   } else {
-    parseLogin(response.authResponse).then(function(user){
-      console.log('Parse login success', user);
-      getMe(function(){
-        getPermissions(function(){
-          if(hasPermission('user_friends')) {
-            getFriends(function(){
-              renderWelcome();
-              onLeaderboard();
-              showHome();
-              urlHandler(window.location.search);
-            });
-          } else {
+    getMe(function(){
+      getPermissions(function(){
+        if(hasPermission('user_friends')) {
+          getFriends(function(){
             renderWelcome();
+            onLeaderboard();
             showHome();
             urlHandler(window.location.search);
-          }
-        });
+          });
+        } else {
+          renderWelcome();
+          showHome();
+          urlHandler(window.location.search);
+        }
       });
-    },function(error){
-      console.log('Parse login failed', error);
     });
   }
 }

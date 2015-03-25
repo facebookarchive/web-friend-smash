@@ -61,6 +61,7 @@ if ($method == 'GET' && $_GET['hub_verify_token'] === $verify_token) {
                 $user = $result->getProperty('user');
                 $items = $result->getPropertyAsArray('items');
                 $product = $items[0]->getProperty('product');
+                $coins = $coins_for_product[$product];
 
                 error_log('product '.$product);
 
@@ -83,10 +84,9 @@ if ($method == 'GET' && $_GET['hub_verify_token'] === $verify_token) {
                 try {
                     $parse_user = $query->find()[0];
                     if( !$parse_user ) return;
-                    error_log($parse_user->getObjectId());
+                    error_log($recipient . ' coins: ' . $coins );
                     $parse_user->increment('coins', $coins);
                     $parse_user->save(true);
-                    error_log($recipient . ' coins: ' . $coins );
                 } catch (ParseException $ex) {
                     error_log($ex);
                 }

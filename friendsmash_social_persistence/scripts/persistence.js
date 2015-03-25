@@ -8,7 +8,7 @@ function parseLogin(authResponse) {
     expiration_date: moment().add('s', authResponse.expiresIn).format()
   }).then(function(user) {
     if( user.existed() ) {
-      return userWithFBIDCheck();
+      return userWithFBIDCheck(authResponse.userID);
     } else {
       return setDefaultUserValues();
     }
@@ -17,13 +17,13 @@ function parseLogin(authResponse) {
   });
 }
 
-function userWithFBIDCheck() {
+function userWithFBIDCheck(userID) {
   console.log('Existing Parse User, checking for FBID');
   if( Parse.User.current().get('fbid') ) {
     // FBID was added before, all is well
     return Parse.Promise.as(Parse.User.current());
   } else {
-    return Parse.User.current().save('fbid', friendCache.me.id);
+    return Parse.User.current().save('fbid', userID);
   }
 }
 

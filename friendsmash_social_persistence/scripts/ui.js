@@ -91,7 +91,7 @@ function onPlay() {
     // Either way, play against a friend if there are friends, otherwise play against a celebrity
     var challenger = {};
     var player = {
-      bombs: Parse.User.current().get('bombs');
+      bombs: Parse.User.current().get('bombs')
     };
     if( friendCache.friends.length > 0 ) {
       var randomFriend = Math.floor(getRandom(0, friendCache.friends.length));
@@ -225,6 +225,21 @@ function playAgainstSomeone(id) {
     showStage();
     updateChallenger(challenger);
     initGame(player, challenger, $('#canvas'), updateGameStats, onGameEnd);
+  });
+}
+
+function onBuyBomb() {
+  console.log('buy bomb');
+  var bombCost = 500;
+  if( Parse.User.current().get('coins') < bombCost ) {
+    alert("You can't afford a bomb!");
+    return;
+  }
+  saveParseUser(-1*bombCost, -1).then( function(user) {
+    console.log('Bought bomb');
+    renderWelcome();
+  }, function(error) {
+    console.log('Error buying bomb');
   });
 }
 

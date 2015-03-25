@@ -12,11 +12,7 @@ function purchaseProduct(product, callback, gift) {
 	}, function(response) {
 		console.log('Payment completed', response);
 		if(response.status && response.status == 'completed') {
-			saveParseUser( coinsForProduct[product], 0 ).then( function(user) {
-				if(callback) callback(response);
-			}, function(error) {
-    			console.log('Error buying bomb');
-			});
+			refreshParseUser().then(renderWelcome);
 		}
 		if(callback) callback(response);
 	} );

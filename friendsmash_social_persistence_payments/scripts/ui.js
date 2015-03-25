@@ -91,7 +91,7 @@ function onPlay() {
     // Either way, play against a friend if there are friends, otherwise play against a celebrity
     var challenger = {};
     var player = {
-      bombs: Parse.User.current().get('bombs');
+      bombs: Parse.User.current().get('bombs')
     };
     if( friendCache.friends.length > 0 ) {
       var randomFriend = Math.floor(getRandom(0, friendCache.friends.length));

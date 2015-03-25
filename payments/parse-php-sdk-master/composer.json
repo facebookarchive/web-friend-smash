@@ -1,0 +1,34 @@
+{
+    "name": "parse/php-sdk",
+    "description": "Parse PHP SDK",
+    "keywords": ["parse", "sdk"],
+    "type": "library",
+    "homepage": "https://github.com/parseplatform/parse-php-sdk",
+    "license": "Parse Platform License",
+    "authors": [
+        {
+            "name": "Parse",
+            "homepage": "https://github.com/parseplatform/parse-php-sdk/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "squizlabs/php_codesniffer": "~1.5",
+        "phpdocumentor/phpdocumentor": "~2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Parse\\": "src/Parse/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

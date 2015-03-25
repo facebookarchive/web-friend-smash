@@ -41,8 +41,8 @@
           <h1>Welcome <span class="first_name">...</span></h1>
           <img class="profile" src="images/profile.png" />
           <ul class="stats">
-            <li>Coins <span class="me coins">...</span></li>
-            <li>Bombs <span class="me bombs">...</span></li>
+            <li><img src="images/coin40.png" alt="Coins" /> <span class="me coins">...</span></li>
+            <li><img class="buybomb" src="images/buybomb40.png" alt="Bombs" /> <span class="me bombs">...</span></li>
           </ul>
         </div>
         <div id="menu">

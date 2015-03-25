@@ -91,7 +91,7 @@ function onPlay() {
     // Either way, play against a friend if there are friends, otherwise play against a celebrity
     var challenger = {};
     var player = {
-      bombs: 5
+      bombs: Parse.User.current().get('bombs')
     };
     if( friendCache.friends.length > 0 ) {
       var randomFriend = Math.floor(getRandom(0, friendCache.friends.length));
@@ -120,6 +120,7 @@ function showGameOver() {
 
 function onGameEnd(gameState) {
   console.log('Game ended', gameState);
+  logGamePlayedEvent(gameState.score);
   showGameOver();
   if( gameState.bombsUsed || gameState.coinsCollected ) {
     saveParseUser(gameState.coinsCollected, gameState.bombsUsed).then( function(user) {
@@ -209,17 +210,37 @@ function onLeaderboard() {
 }
 
 function onLeaderboardItemClick() {
-  var player = {
-    bombs: 5
-  };
-  var challenger = {
-    id: $(this).attr('data-id'),
-    picture: $(this).find('img').attr('src'),
-    name: $(this).find('.name').html()
-  };
-  showStage();
-  updateChallenger(challenger);
-  initGame(player, challenger, $('#canvas'), updateGameStats, onGameEnd);
+  playAgainstSomeone($(this).attr('data-id'));
+}
+
+function playAgainstSomeone(id) {
+  getOpponentInfo(id,function(response) {
+    var challenger = {
+      id: response.id,
+      picture: response.picture.data.url,
+      name: response.first_name
+    }, player = {
+      bombs: Parse.User.current().get('bombs')
+    };
+    showStage();
+    updateChallenger(challenger);
+    initGame(player, challenger, $('#canvas'), updateGameStats, onGameEnd);
+  });
+}
+
+function onBuyBomb() {
+  console.log('buy bomb');
+  var bombCost = 500;
+  if( Parse.User.current().get('coins') < bombCost ) {
+    alert("You can't afford a bomb!");
+    return;
+  }
+  saveParseUser(-1*bombCost, -1).then( function(user) {
+    console.log('Bought bomb');
+    renderWelcome();
+  }, function(error) {
+    console.log('Error buying bomb');
+  });
 }
 
 function updatePlayerUI() {
@@ -265,7 +286,7 @@ function updateGameStats(gameState) {
 }
 
 function onGameOverChallenge() {
-  sendChallenge($(this).attr('data-id'), 'I just smashed you ' + $(this).attr('data-score') + 'times. Think you can beat me?', function(){
+  sendChallenge($(this).attr('data-id'), 'I just smashed you ' + $(this).attr('data-score') + ' times. Think you can beat me?', function(){
     onGameOverClose();
   }, true);
 }
@@ -295,4 +316,28 @@ function onGameOverClose() {
 
 function onShare() {
   share();
+}
+
+function getParameterByName(url, name) {
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec(url);
+  return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function urlHandler(data) {
+  // Called from either setUrlHandler or using window.location on load, so normalise the path
+  var path = data.path || data;
+  console.log('urlHandler', path);
+
+  var request_ids = getParameterByName(path, 'request_ids');
+  var latest_request_id = request_ids.split(',')[0];
+
+  if (latest_request_id) {
+    // Probably a challenge request. Play against sender
+    getRequestInfo(latest_request_id, function(request) {
+      playAgainstSomeone(request.from.id);
+      deleteRequest(latest_request_id);
+    });
+  }
 }

@@ -63,8 +63,13 @@ $( document ).ready(function() {
     appId: appId,
     frictionlessRequests: true,
     status: true,
-    version: 'v2.1'
+    version: 'v2.3'
   });
+
+  FB.AppEvents.activateApp();
+
+  FB.Canvas.setDoneLoading();
+  FB.Canvas.setUrlHandler( urlHandler );
 
   FB.Event.subscribe('auth.authResponseChange', onAuthResponseChange);
   FB.Event.subscribe('auth.statusChange', onStatusChange);

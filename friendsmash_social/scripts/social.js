@@ -66,6 +66,36 @@ function getScores(callback) {
   getFriendCacheData('scores', callback, {fields: 'score,user.fields(first_name,name,picture.width(120).height(120))'});
 }
 
+function getOpponentInfo(id, callback) {
+  FB.api(String(id), {fields: 'id,first_name,name,picture.width(120).height(120)' }, function(response){
+    if( response.error ) {
+      console.error('getOpponentInfo', response.error);
+      return;
+    }
+    if(callback) callback(response);
+  });
+}
+
+function getRequestInfo(id, callback) {
+  FB.api(String(id), {fields: 'from{id,name,picture}' }, function(response){
+    if( response.error ) {
+      console.error('getRequestSenderInfo', response.error);
+      return;
+    }
+    if(callback) callback(response);
+  });
+}
+
+function deleteRequest(id, callback) {
+  FB.api(String(id), 'delete', function(response){
+    if( response.error ) {
+      console.error('deleteRequest', response.error);
+      return;
+    }
+    if(callback) callback(response);
+  });
+}
+
 function hasPermission(permission) {
   for( var i in friendCache.permissions ) {
     if(
@@ -102,10 +132,12 @@ function onStatusChange(response) {
             renderWelcome();
             onLeaderboard();
             showHome();
+            urlHandler(window.location.search);
           });
         } else {
           renderWelcome();
           showHome();
+          urlHandler(window.location.search);
         }
       });
     });
@@ -206,4 +238,11 @@ function share(callback) {
     console.log('share', response);
     if(callback) callback(response);
   });
+}
+
+function logGamePlayedEvent(score) {
+  var params = {
+    'score': score
+  };
+  FB.AppEvents.logEvent('game_played', null, params);
 }

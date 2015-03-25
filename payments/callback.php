@@ -14,15 +14,17 @@ use Parse\ParseClient;
 use Parse\ParseUser;
 use Parse\ParseQuery;
 
-FacebookSession::setDefaultApplication('844042765624257','qqJJ0AfOPpXQtUymZpkj4HPgon8');
+FacebookSession::setDefaultApplication(
+    'YOUR_APP_ID',
+    'YOUR_APP_SECRET');
 
 ParseClient::initialize( 
-    'N1lOGVWXpikgvPFJxkfkd4kRTvaPNuOWe83zRoRx', 
-    'OMoIKyKtmqMyLsaM4wYqStNzGOjFlujBbkMYswW8', 
-    '0zaDlFNK1GpHq5s3KqZ51hG9UhFVAXmxb7nZm34q' );
+    'YOUR_PARSE_APP_ID', 
+    'YOUR_PARSE_REST_KEY', 
+    'YOUR_PARSE_MASTER_KEY' );
 
 $verify_token = "friendsmash";
-$app_token = "844042765624257|qqJJ0AfOPpXQtUymZpkj4HPgon8";
+$app_token = "YOUR_APP_ACCESS_TOKEN";
 
 // Use one of the helper classes to get a FacebookSession object.
 //   FacebookRedirectLoginHelper
@@ -32,9 +34,9 @@ $app_token = "844042765624257|qqJJ0AfOPpXQtUymZpkj4HPgon8";
 $session = new FacebookSession($app_token);
 
 $coins_for_product = [
-    'https://friendsmashsampledev.herokuapp.com/payments/100coins.html' => 100,
-    'https://friendsmashsampledev.herokuapp.com/payments/500coins.html' => 500,
-    'https://friendsmashsampledev.herokuapp.com/payments/1000coins.html' => 1000,
+    'https://friendsmashsample.herokuapp.com/payments/100coins.html' => 100,
+    'https://friendsmashsample.herokuapp.com/payments/500coins.html' => 500,
+    'https://friendsmashsample.herokuapp.com/payments/1000coins.html' => 1000,
 ];
 
 // Get the GraphUser object for the current user:

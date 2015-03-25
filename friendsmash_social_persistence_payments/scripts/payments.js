@@ -1,7 +1,7 @@
 var coinsForProduct = {
-	'https://friendsmashsampledev.herokuapp.com/payments/100coins.html' : 100,
-	'https://friendsmashsampledev.herokuapp.com/payments/500coins.html' : 500,
-	'https://friendsmashsampledev.herokuapp.com/payments/1000coins.html' : 1000
+	'https://friendsmashsample.herokuapp.com/payments/100coins.html' : 100,
+	'https://friendsmashsample.herokuapp.com/payments/500coins.html' : 500,
+	'https://friendsmashsample.herokuapp.com/payments/1000coins.html' : 1000
 }
 
 function purchaseProduct(product, callback, gift) {

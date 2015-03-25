@@ -108,19 +108,19 @@
         <h1>Store</h1>
         <div class="normal_store">
           <ul class="scrollable_list store invitable_friends">
-            <li class="item" data-product="https://friendsmashsampledev.herokuapp.com/payments/100coins.html">
+            <li class="item" data-product="https://friendsmashsample.herokuapp.com/payments/100coins.html">
               <img src="images/bundle.png" class="icon small" />
               <span class="name">100 coins</span>
               <img src="images/buy64.png" class="button buy small" alt="Buy" />
               <img src="images/gift64.png" class="button gift small" alt="Gift" />
             </li>
-            <li class="item" data-product="https://friendsmashsampledev.herokuapp.com/payments/500coins.html">
+            <li class="item" data-product="https://friendsmashsample.herokuapp.com/payments/500coins.html">
               <img src="images/bundle.png" class="icon small" />
               <span class="name">500 coins</span>
               <img src="images/buy64.png" class="button buy small" alt="Buy" />
               <img src="images/gift64.png" class="button gift small" alt="Gift" />
             </li>
-            <li class="item" data-product="https://friendsmashsampledev.herokuapp.com/payments/1000coins.html">
+            <li class="item" data-product="https://friendsmashsample.herokuapp.com/payments/1000coins.html">
               <img src="images/bundle.png" class="icon small" />
               <span class="name">1000 coins</span>
               <img src="images/buy64.png" class="button buy small" alt="Buy" />

@@ -1,5 +1,5 @@
-var appId = '480369938658210';
-var appNamespace = 'friendsmashsample';
+var appId = '844042765624257';
+var appNamespace = 'friendsmashsampledev';
 var appCenterURL = '//www.facebook.com/appcenter/' + appNamespace;
 
 var friendCache = {
@@ -66,6 +66,36 @@ function getScores(callback) {
   getFriendCacheData('scores', callback, {fields: 'score,user.fields(first_name,name,picture.width(120).height(120))'});
 }
 
+function getOpponentInfo(id, callback) {
+  FB.api(String(id), {fields: 'id,first_name,name,picture.width(120).height(120)' }, function(response){
+    if( response.error ) {
+      console.error('getOpponentInfo', response.error);
+      return;
+    }
+    if(callback) callback(response);
+  });
+}
+
+function getRequestInfo(id, callback) {
+  FB.api(String(id), {fields: 'from{id,name,picture}' }, function(response){
+    if( response.error ) {
+      console.error('getRequestSenderInfo', response.error);
+      return;
+    }
+    if(callback) callback(response);
+  });
+}
+
+function deleteRequest(id, callback) {
+  FB.api(String(id), 'delete', function(response){
+    if( response.error ) {
+      console.error('deleteRequest', response.error);
+      return;
+    }
+    if(callback) callback(response);
+  });
+}
+
 function hasPermission(permission) {
   for( var i in friendCache.permissions ) {
     if(
@@ -92,22 +122,30 @@ function reRequest(scope, callback) {
 }
 
 function onStatusChange(response) {
+  console.log('onStatusChange', response);
   if( response.status != 'connected' ) {
     login(loginCallback);
   } else {
-    getMe(function(){
-      getPermissions(function(){
-        if(hasPermission('user_friends')) {
-          getFriends(function(){
+    parseLogin(response.authResponse).then(function(user){
+      console.log('Parse login success', user);
+      getMe(function(){
+        getPermissions(function(){
+          if(hasPermission('user_friends')) {
+            getFriends(function(){
+              renderWelcome();
+              onLeaderboard();
+              showHome();
+              urlHandler(window.location.search);
+            });
+          } else {
             renderWelcome();
-            onLeaderboard();
             showHome();
-          });
-        } else {
-          renderWelcome();
-          showHome();
-        }
+            urlHandler(window.location.search);
+          }
+        });
       });
+    },function(error){
+      console.log('Parse login failed', error);
     });
   }
 }
@@ -206,4 +244,11 @@ function share(callback) {
     console.log('share', response);
     if(callback) callback(response);
   });
+}
+
+function logGamePlayedEvent(score) {
+  var params = {
+    'score': score
+  };
+  FB.AppEvents.logEvent('game_played', null, params);
 }

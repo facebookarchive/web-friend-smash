@@ -68,7 +68,7 @@ $( document ).ready(function() {
     appId: appId,
     frictionlessRequests: true,
     status: true,
-    version: 'v2.2'
+    version: 'v2.3'
   });
 
   FB.AppEvents.activateApp();

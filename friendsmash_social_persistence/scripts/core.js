@@ -39,6 +39,8 @@ var celebs = [{
 
 $( document ).ready(function() {
 
+  $( document ).on( 'click', '#welcome .buybomb', onBuyBomb );
+
   $( document ).on( 'click', '#menu button.play', onPlay );
   $( document ).on( 'click', '#menu button.challenge', onChallenge );
   $( document ).on( 'click', '#menu button.leaderboard', onLeaderboard );
@@ -65,6 +67,11 @@ $( document ).ready(function() {
     status: true,
     version: 'v2.3'
   });
+
+  FB.AppEvents.activateApp();
+
+  FB.Canvas.setDoneLoading();
+  FB.Canvas.setUrlHandler( urlHandler );
 
   Parse.initialize(parseAppID, parseJSKey);
 

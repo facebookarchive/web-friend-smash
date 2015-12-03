@@ -43,7 +43,7 @@ Initialization
 After including the required files from the SDK, you need to initalize the ParseClient using your Parse API keys:
 
 ```php
-ParseClient::initialize( $app_id, $rest_key, $master_key );
+ParseClient::initialize( $appId, $rest_key, $master_key );
 ```
 
 Usage

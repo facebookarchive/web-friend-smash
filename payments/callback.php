@@ -4,6 +4,7 @@
 define('FACEBOOK_SDK_V4_SRC_DIR', 'facebook-php-sdk/src/Facebook/');
 require __DIR__ . '/facebook-php-sdk/autoload.php';
 require __DIR__ . '/parse-php-sdk-master/autoload.php';
+require __DIR__ . '/../config.php';
 
 use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
@@ -18,9 +19,9 @@ FacebookSession::setDefaultApplication(
     'YOUR_APP_ID',
     'YOUR_APP_SECRET');
 
-ParseClient::initialize( 
-    'YOUR_PARSE_APP_ID', 
-    'YOUR_PARSE_REST_KEY', 
+ParseClient::initialize(
+    'YOUR_PARSE_APP_ID',
+    'YOUR_PARSE_REST_KEY',
     'YOUR_PARSE_MASTER_KEY' );
 
 $verify_token = "friendsmash";
@@ -34,9 +35,9 @@ $app_token = "YOUR_APP_ACCESS_TOKEN";
 $session = new FacebookSession($app_token);
 
 $coins_for_product = [
-    'https://friendsmashsample.herokuapp.com/payments/100coins.html' => 100,
-    'https://friendsmashsample.herokuapp.com/payments/500coins.html' => 500,
-    'https://friendsmashsample.herokuapp.com/payments/1000coins.html' => 1000,
+    '{$serverUrl}/payments/100coins.html' => 100,
+    '{$serverUrl}/payments/500coins.html' => 500,
+    '{$serverUrl}/payments/1000coins.html' => 1000,
 ];
 
 // Get the GraphUser object for the current user:
@@ -68,7 +69,7 @@ if ($method == 'GET' && $_GET['hub_verify_token'] === $verify_token) {
                 error_log('product '.$product);
 
                 $recipient = '';
-                
+
                 if( $gift_requests ) {
                     $data = $gift_requests->getPropertyAsArray('data');
                     $recipient = $data[0]->getProperty('to')->getProperty('id');

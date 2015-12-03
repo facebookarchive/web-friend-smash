@@ -53,19 +53,19 @@ final class ParseClient
   /**
    * Parse\Client::initialize, must be called before using Parse features.
    *
-   * @param string $app_id                Parse Application ID
+   * @param string $appId                Parse Application ID
    * @param string $rest_key              Parse REST API Key
    * @param string $master_key            Parse Master Key
    * @param string $enableCurlExceptions  Enable or disable Parse curl exceptions
    *
    * @return null
    */
-  public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true)
+  public static function initialize($appId, $rest_key, $master_key, $enableCurlExceptions = true)
   {
     ParseUser::registerSubclass();
     ParseRole::registerSubclass();
     ParseInstallation::registerSubclass();
-    self::$applicationId = $app_id;
+    self::$applicationId = $appId;
     self::$restKey = $rest_key;
     self::$masterKey = $master_key;
     self::$enableCurlExceptions = $enableCurlExceptions;
